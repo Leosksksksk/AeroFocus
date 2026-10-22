@@ -216,6 +216,8 @@ form.stacked-form label {
 }
 
 input[type="text"],
+input[type="email"],
+input[type="password"],
 input[type="date"],
 input[type="search"],
 select,
@@ -381,3 +383,44 @@ tbody tr:hover { background-color: var(--bg-panel-alt); }
     color: var(#ec1010);
     font-size: 0.8rem;
 }
+.app-header nav a.nav-user {
+    border-radius: 20px;
+    padding: 6px 14px;
+    font-size: 0.82rem;
+    font-weight: 600;
+    color: var(--sky-blue);
+    background: rgba(56, 189, 248, 0.08);
+    border: 1px solid rgba(56, 189, 248, 0.25);
+}
+.app-header nav a.nav-user:hover {
+    background: var(--sky-blue);
+    color: var(--bg-dark);
+    box-shadow: 0 0 14px var(--sky-blue-glow);
+}
+/* Make email and password fields match the other inputs */
+input[type="email"],
+input[type="password"] {
+    width: 100%;
+    padding: 10px 12px;
+    background-color: var(--bg-panel-alt);
+    border: 1px solid var(--grey-border);
+    border-radius: 6px;
+    color: #eaeaea;
+    font-size: 0.95rem;
+    font-family: var(--font);
+}
+
+input[type="email"]:focus,
+input[type="password"]:focus {
+    outline: none;
+    border-color: var(--sky-blue);
+    box-shadow: 0 0 10px var(--sky-blue-glow);
+}
+
+/* Keep the form fields centered and evenly sized inside the panel */
+.stacked-form input,
+.stacked-form select {
+    display: block;
+    width: 100%;
+}
+.stacked-form .form-actions { justify-content: center; }
