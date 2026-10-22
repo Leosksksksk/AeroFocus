@@ -1,0 +1,383 @@
+/* =========================================================
+   AeroFocus — Neon Theme Stylesheet
+   Palette: orange, sky blue, green, grey, red — pure CSS only
+   ========================================================= */
+
+:root {
+    --bg-dark: #0d0f14;
+    --bg-panel: #13161e;
+    --bg-panel-alt: #1a1d28;
+    --grey-border: #252836;
+    --grey-text: #94a3b8;
+    --muted: #64748b;
+    --sky-blue: #38bdf8;
+    --sky-blue-glow: rgba(56, 189, 248, 0.45);
+    --orange: #ff8c1a;
+    --orange-glow: rgba(255, 140, 26, 0.45);
+    --green: #39ff8a;
+    --green-glow: rgba(57, 255, 138, 0.35);
+    --red: #ff3b4e;
+    --red-glow: rgba(255, 59, 78, 0.4);
+    --font: 'Inter', 'Segoe UI', Arial, sans-serif;
+}
+
+* { box-sizing: border-box; }
+
+body {
+    margin: 0;
+    font-family: var(--font);
+    background-color: var(--bg-dark);
+    background-image:
+        radial-gradient(ellipse at 10% 10%, rgba(56, 189, 248, 0.08), transparent 45%),
+        radial-gradient(ellipse at 90% 90%, rgba(255, 140, 26, 0.08), transparent 45%);
+    color: var(--grey-text);
+    min-height: 100vh;
+}
+
+/* Background grid behind floating canvas */
+body::before {
+    content: '';
+    position: fixed;
+    inset: 0;
+    background-image:
+        linear-gradient(rgba(56, 189, 248, 0.03) 1px, transparent 1px),
+        linear-gradient(90deg, rgba(56, 189, 248, 0.03) 1px, transparent 1px);
+    background-size: 40px 40px;
+    pointer-events: none;
+    z-index: 0;
+}
+
+/* Floating math background canvas opacity */
+#math-bg-canvas {
+    opacity: 0.95; /* <-- Adjust here (0.0 = completely transparent, 1.0 = fully solid) */
+}
+
+/* ---------- Layout ---------- */
+.app-header {
+    position: relative;
+    z-index: 10;
+    background-color: rgba(19, 22, 30, 0.88);
+    backdrop-filter: blur(12px);
+    -webkit-backdrop-filter: blur(12px);
+    border-bottom: 2px solid var(--sky-blue);
+    box-shadow: 0 0 18px var(--sky-blue-glow);
+    padding: 18px 30px;
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+}
+
+.app-header h1 {
+    margin: 0;
+    color: var(--sky-blue);
+    text-shadow: 0 0 10px var(--sky-blue-glow);
+    letter-spacing: 1px;
+}
+
+.app-header .tagline {
+    color: var(--orange);
+    font-size: 0.85rem;
+    text-shadow: 0 0 8px var(--orange-glow);
+}
+
+.app-header nav a {
+    display: inline-block;
+    padding: 8px 16px;
+    border-radius: 6px;
+    text-decoration: none;
+    font-weight: bold;
+    font-size: 0.9rem;
+    border: 1px solid var(--grey-border);
+    color: var(--grey-text);
+    background-color: transparent;
+    margin-left: 10px;
+    transition: all 0.15s ease-in-out;
+}
+
+.app-header nav a:hover {
+    color: var(--bg-dark);
+    background-color: var(--sky-blue);
+    border-color: var(--sky-blue);
+    box-shadow: 0 0 14px var(--sky-blue-glow);
+}
+
+/* User info chip in header */
+.nav-user {
+    display: inline-block;
+    padding: 6px 14px;
+    border-radius: 20px;
+    font-size: 0.82rem;
+    font-weight: 600;
+    color: var(--sky-blue);
+    background: rgba(56, 189, 248, 0.08);
+    border: 1px solid rgba(56, 189, 248, 0.25);
+    margin-left: 10px;
+    vertical-align: middle;
+}
+
+/* Sign-out button */
+.nav-logout {
+    display: inline-block;
+    padding: 7px 14px;
+    border-radius: 6px;
+    text-decoration: none;
+    font-weight: 700;
+    font-size: 0.85rem;
+    border: 1px solid var(--red);
+    color: var(--red);
+    background: transparent;
+    margin-left: 8px;
+    transition: all 0.15s ease-in-out;
+    cursor: pointer;
+}
+.nav-logout:hover {
+    background-color: var(--red);
+    color: #fff;
+    box-shadow: 0 0 12px var(--red-glow);
+}
+
+/* Button orange variant (used in index and subjects) */
+.btn-orange,
+a.btn-orange,
+a.btn-orange:visited {
+    background-color: rgba(255, 140, 26, 0.12);
+    color: #ffb75d !important;
+    border: 1px solid #ff8c1a;
+    box-shadow: 0 0 10px rgba(255, 140, 26, 0.3);
+    font-weight: 700;
+}
+.btn-orange:hover,
+a.btn-orange:hover {
+    background-color: #ff8c1a;
+    color: #0d0f14 !important;
+    box-shadow: 0 0 16px var(--orange-glow);
+}
+
+.container {
+    position: relative;
+    z-index: 5;
+    max-width: 100%;
+    margin: 0;
+    padding: 18px 24px 40px;
+}
+
+.panel {
+    background: rgba(19, 22, 30, 0.84);
+    backdrop-filter: blur(14px);
+    -webkit-backdrop-filter: blur(14px);
+    border: 1px solid var(--grey-border);
+    border-radius: 14px;
+    padding: 28px 24px;
+    margin: 16px 0;
+    box-shadow: 0 10px 30px rgba(0, 0, 0, 0.45);
+    position: relative;
+    z-index: 5;
+}
+
+.panel h2 {
+    color: var(--orange);
+    text-shadow: 0 0 8px var(--orange-glow);
+    border-bottom: 1px solid var(--grey-border);
+    padding-bottom: 10px;
+    margin-top: 0;
+}
+
+/* ---------- Alerts ---------- */
+.alert {
+    padding: 12px 16px;
+    border-radius: 6px;
+    margin-bottom: 20px;
+    border: 1px solid;
+    font-size: 0.9rem;
+}
+
+.alert-success {
+    color: var(--green);
+    border-color: var(--green);
+    background-color: rgba(57, 255, 138, 0.08);
+    box-shadow: 0 0 12px var(--green-glow);
+}
+
+.alert-error {
+    color: var(--red);
+    border-color: var(--red);
+    background-color: rgba(255, 59, 78, 0.08);
+    box-shadow: 0 0 12px var(--red-glow);
+}
+
+/* ---------- Forms ---------- */
+form.stacked-form label {
+    display: block;
+    margin: 14px 0 6px;
+    color: var(--sky-blue);
+    font-size: 0.85rem;
+    text-transform: uppercase;
+    letter-spacing: 0.5px;
+}
+
+input[type="text"],
+input[type="date"],
+input[type="search"],
+select,
+textarea {
+    width: 100%;
+    padding: 10px 12px;
+    background-color: var(--bg-panel-alt);
+    border: 1px solid var(--grey-border);
+    border-radius: 6px;
+    color: #eaeaea;
+    font-size: 0.95rem;
+}
+
+input:focus, select:focus, textarea:focus {
+    outline: none;
+    border-color: var(--sky-blue);
+    box-shadow: 0 0 10px var(--sky-blue-glow);
+}
+
+textarea { min-height: 90px; resize: vertical; }
+
+.form-actions {
+    margin-top: 22px;
+    display: flex;
+    gap: 12px;
+}
+
+/* ---------- Buttons ---------- */
+.btn,
+.btn:visited,
+a.btn,
+a.btn:visited {
+    display: inline-block;
+    padding: 10px 18px;
+    border-radius: 6px;
+    text-decoration: none;
+    font-weight: bold;
+    font-size: 0.9rem;
+    border: 1px solid transparent;
+    cursor: pointer;
+    transition: all 0.15s ease-in-out;
+}
+
+.btn-primary {
+    background-color: transparent;
+    color: var(--sky-blue);
+    border-color: var(--sky-blue);
+}
+.btn-primary:hover {
+    background-color: var(--sky-blue);
+    color: var(--bg-dark);
+    box-shadow: 0 0 14px var(--sky-blue-glow);
+}
+
+.btn-success {
+    background-color: transparent;
+    color: var(--green);
+    border-color: var(--green);
+}
+.btn-success:hover {
+    background-color: var(--green);
+    color: var(--bg-dark);
+    box-shadow: 0 0 14px var(--green-glow);
+}
+
+.btn-warning {
+    background-color: transparent;
+    color: var(--orange);
+    border-color: var(--orange);
+}
+.btn-warning:hover {
+    background-color: var(--orange);
+    color: var(--bg-dark);
+    box-shadow: 0 0 14px var(--orange-glow);
+}
+
+.btn-danger {
+    background-color: transparent;
+    color: var(--red);
+    border-color: var(--red);
+}
+.btn-danger:hover {
+    background-color: var(--red);
+    color: #fff;
+    box-shadow: 0 0 14px var(--red-glow);
+}
+
+.btn-grey {
+    background-color: transparent;
+    color: var(--grey-text);
+    border-color: var(--grey-border);
+}
+.btn-grey:hover {
+    background-color: var(--grey-border);
+    color: #fff;
+}
+
+/* ---------- Search bar ---------- */
+.search-bar {
+    display: flex;
+    gap: 10px;
+    margin-bottom: 20px;
+}
+.search-bar input[type="search"] { flex: 1; }
+
+/* ---------- Table ---------- */
+table {
+    width: 100%;
+    border-collapse: collapse;
+}
+
+thead th {
+    text-align: left;
+    color: var(--sky-blue);
+    border-bottom: 2px solid var(--sky-blue);
+    padding: 10px 8px;
+    font-size: 0.8rem;
+    text-transform: uppercase;
+    letter-spacing: 0.5px;
+}
+
+tbody td {
+    padding: 12px 8px;
+    border-bottom: 1px solid var(--grey-border);
+    font-size: 0.9rem;
+    vertical-align: middle;
+}
+
+tbody tr:hover { background-color: var(--bg-panel-alt); }
+
+.actions-cell { white-space: nowrap; }
+.actions-cell .btn { padding: 6px 10px; font-size: 0.8rem; margin-right: 6px; }
+
+/* ---------- Badges ---------- */
+.badge {
+    display: inline-block;
+    padding: 4px 10px;
+    border-radius: 20px;
+    font-size: 0.75rem;
+    font-weight: bold;
+    border: 1px solid;
+}
+
+.priority-High { color: var(--red); border-color: var(--red); box-shadow: 0 0 8px var(--red-glow); }
+.priority-Medium { color: var(--orange); border-color: var(--orange); box-shadow: 0 0 8px var(--orange-glow); }
+.priority-Low { color: var(--grey-text); border-color: var(--grey-border); }
+
+.status-Completed { color: var(--green); border-color: var(--green); box-shadow: 0 0 8px var(--green-glow); }
+.status-Pending { color: var(--sky-blue); border-color: var(--sky-blue); box-shadow: 0 0 8px var(--sky-blue-glow); }
+.status-InProgress { color: var(--orange); border-color: var(--orange); box-shadow: 0 0 8px var(--orange-glow); }
+
+.empty-state {
+    text-align: center;
+    padding: 40px 0;
+    color: var(--grey-text);
+}
+
+.app-footer {
+    position: relative;
+    z-index: 2;
+    text-align: center;
+    padding: 20px;
+    color: var(#ec1010);
+    font-size: 0.8rem;
+}
