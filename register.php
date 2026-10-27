@@ -1,16 +1,19 @@
 <?php
 /**
  * register.php – AeroFocus Registration
+ *
+ * Transaction 1 (register) is handled inside User::register().
  */
-if (session_status() === PHP_SESSION_NONE) session_start();
+require_once 'config/database.php';
+require_once 'classes/User.php';
+
+// Start session with hardened cookie settings
+User::startSession();
 
 if (!empty($_SESSION['user_id'])) {
     header('Location: index.php');
     exit;
 }
-
-require_once 'config/database.php';
-require_once 'classes/User.php';
 
 $errors = [];
 

@@ -2,16 +2,17 @@
 /**
  * login.php – AeroFocus Authentication
  */
-if (session_status() === PHP_SESSION_NONE) session_start();
+require_once 'config/database.php';
+require_once 'classes/User.php';
+
+// Start session with hardened cookie settings
+User::startSession();
 
 // Already logged in? Redirect to dashboard
 if (!empty($_SESSION['user_id'])) {
     header('Location: index.php');
     exit;
 }
-
-require_once 'config/database.php';
-require_once 'classes/User.php';
 
 $errors  = [];
 $success = '';
@@ -30,6 +31,9 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
         $result   = $userObj->login($username, $password);
 
         if ($result['success']) {
+            // Regenerate session ID to prevent session-fixation attacks
+            User::regenerateSession();
+
             $_SESSION['user_id']       = $result['user_id'];
             $_SESSION['username']      = $result['username'];
             $_SESSION['full_name']     = $result['full_name'];
